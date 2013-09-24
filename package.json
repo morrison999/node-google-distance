@@ -1,0 +1,16 @@
+{
+  "name": "google-distance",
+  "version": "0.0.3",
+  "main": "index",
+  "description": "A simple node.js wrapper for Google's Distance Matrix API",
+  "author": {
+    "name": "Edward Look <edwlook@gmail.com>"
+  },
+  "keywords": [
+    "google",
+    "maps",
+    "distance",
+    "matrix",
+    "api"
+  ]
+}
