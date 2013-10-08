@@ -1,6 +1,6 @@
 var qs = require('querystring'),
 	http = require('http');
-
+var index = 0;
 exports.get = function(args, callback) {
 	var options = {
 		origins: args.origin,
@@ -25,7 +25,9 @@ exports.get = function(args, callback) {
 			callback(new Error('Status error: ' + data.status));
 			return;
 		}
+		index++;
 		var d = {
+			index: index,
 			distance: data.rows[0].elements[0].distance.text,
 			duration: data.rows[0].elements[0].duration.text,
 			origin: data.origin_addresses[0],
