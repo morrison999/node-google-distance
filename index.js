@@ -1,7 +1,10 @@
 'use strict';
 
 var qs = require('querystring'),
-  http = require('http');
+    request = require('request');
+
+var DISTANCE_API_URL = 'http://maps.googleapis.com/maps/api/distancematrix/json?';
+
 exports.get = function(args, callback) {
   var options = {
     index: args.index || null,
@@ -17,7 +20,7 @@ exports.get = function(args, callback) {
   if (!options.origins) {return callback(new Error('Argument Error: Origin is invalid'))}
   if (!options.destinations) {return callback(new Error('Argument Error: Destination is invalid'))}
 
-  request(options, function(err, result) {
+  fetchData(options, function(err, result) {
     if (err) {
       callback(err);
       return;
@@ -41,27 +44,35 @@ exports.get = function(args, callback) {
     };
     return callback(null, d);
   });
-}
+};
 
 
-var request = function(options, callback) {
-  var httpOptions = {
-      host: 'maps.googleapis.com',
-      path: '/maps/api/distancematrix/json?' + qs.stringify(options)
-  };
-
-  var requestCallback = function(res) {
-      var json = '';
-
-      res.on('data', function (chunk) {
-        json += chunk;
-        callback(null, JSON.parse(json));
-      });
-  }
-
-  var req = http.request(httpOptions, requestCallback);
-  req.on('error', function(err) {
-    callback(new Error('Request error: ' + err.message));
+var fetchData = function(options, callback) {
+  request(DISTANCE_API_URL + qs.stringify(options), function (error, res, body) {
+    if (!error && res.statusCode == 200) {
+      var data = JSON.parse(body);
+      callback(null, data);
+    } else {
+      callback(new Error('Could not fetch data from Google\'s servers'));
+    }
   });
-  req.end();
+  // var httpOptions = {
+  //     host: 'maps.googleapis.com',
+  //     path: '/maps/api/distancematrix/json?' + qs.stringify(options)
+  // };
+
+  // var requestCallback = function(res) {
+  //     var json = '';
+
+  //     res.on('data', function (chunk) {
+  //       json += chunk;
+  //       callback(null, JSON.parse(json));
+  //     });
+  // }
+
+  // var req = http.request(httpOptions, requestCallback);
+  // req.on('error', function(err) {
+  //   callback(new Error('Request error: ' + err.message));
+  // });
+  // req.end();
 }

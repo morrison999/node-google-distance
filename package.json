@@ -6,10 +6,9 @@
   "author": {
     "name": "Edward Look <edwlook@gmail.com>"
   },
-  "repository" :
-  {
-    "type" : "git"
-  , "url" : "https://github.com/edwlook/node-google-distance.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edwlook/node-google-distance.git"
   },
   "keywords": [
     "google",
@@ -17,5 +16,8 @@
     "distance",
     "matrix",
     "api"
-  ]
+  ],
+  "dependencies": {
+    "request": "~2.34.0"
+  }
 }
