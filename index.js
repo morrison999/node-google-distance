@@ -14,7 +14,7 @@ exports.get = function(args, callback) {
 
 	if (!options.origins) {return callback(new Error('Argument Error: Origin is invalid'))}
 	if (!options.destinations) {return callback(new Error('Argument Error: Destination is invalid'))}
-		
+
 	request(options, function(err, result) {
 		if (err) {
 			callback(err);
@@ -38,7 +38,7 @@ exports.get = function(args, callback) {
 			sensor: options.sensor
 		};
 		return callback(null, d);
-	});	
+	});
 }
 
 
@@ -55,7 +55,7 @@ var request = function(options, callback) {
 	    	json += chunk;
 	    	callback(null, JSON.parse(json));
 	  	});
-	}	
+	}
 
 	var req = http.request(httpOptions, requestCallback);
 	req.on('error', function(err) {
