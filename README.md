@@ -16,8 +16,7 @@ distance.get(
   },
   function(err, data) {
     if (err) {
-      console.error(err);
-      return;
+      return console.error(err);
     }
     console.log(data);
     //your custom logic...
@@ -64,8 +63,7 @@ distance.get(
   },
   function(err, data) {
     if (err) {
-      console.error(err);
-      return;
+      return console.error(err);
     }
     console.log(data);
     //your custom logic...
@@ -96,8 +94,7 @@ distance.get(
 },
 function(err, data) {
   if (err) {
-    console.error(err);
-    return;
+    return console.error(err);
   }
   console.log(data);
   //your custom logic...
