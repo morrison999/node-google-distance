@@ -3,7 +3,7 @@ Easily get traveling distance and duration info between locations with [Google D
 
 ## Installation
 
-  npm install google-distance
+    npm install google-distance
 
 ## Usage
 ```js
