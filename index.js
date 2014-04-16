@@ -29,10 +29,10 @@ exports.get = function(args, callback) {
       return callback(err);
     }
     var requestStatus = data.status;
-    var resultStatus = data.rows[0].elements[0].status;
     if (requestStatus != 'OK') {
       return callback(new Error('Status error: ' + requestStatus));
     }
+    var resultStatus = data.rows[0].elements[0].status;
     if (resultStatus != 'OK') {
       return callback(new Error('Result error: ' + resultStatus));
     }
