@@ -12,11 +12,11 @@ First node module, please give feedback and suggestions :)
 	var distance = require('google-distance');
 
 	distance.get(
-		{	
-			origin: 'San Francisco, CA', 
+		{
+			origin: 'San Francisco, CA',
 			destination: 'San Diego, CA'
-		}, 
-		function(err, data) { 
+		},
+		function(err, data) {
 			if (err) {
 				console.error(err);
 				return;
@@ -27,7 +27,7 @@ First node module, please give feedback and suggestions :)
 
 The above example outputs the following `data` object:
 
-	{ 
+	{
 		index: null,
 		distance: '502 mi',
 		duration: '7 hours 48 mins',
@@ -37,7 +37,7 @@ The above example outputs the following `data` object:
 		units: 'imperial',
 		language: 'en',
 		avoid: null,
-		sensor: false 
+		sensor: false
 	}
 
 ## Additional Parameters
@@ -58,13 +58,13 @@ This one uses more options:
 	var distance = require('google-distance');
 
 	distance.get(
-		{	
-			origin: 'San Francisco, CA', 
+		{
+			origin: 'San Francisco, CA',
 			destination: 'Los Angeles, CA',
 			mode: 'bicycling',
 			units: 'metric'
-		}, 
-		function(err, data) { 
+		},
+		function(err, data) {
 			if (err) {
 				console.error(err);
 				return;
@@ -75,7 +75,7 @@ This one uses more options:
 
 Outputs:
 
-	{ 
+	{
 		index: null,
 		distance: '800 km',
 		duration: '1 day 21 hours',
@@ -85,17 +85,17 @@ Outputs:
 		units: 'metric',
 		language: 'en',
 		avoid: null,
-		sensor: false 
+		sensor: false
 	}
 
 Let's use latitude and longitude and an index:
-	
+
 	distance.get(
-	{	
+	{
 		index: 1,
-		origin: '37.772886,-122.423771', 
+		origin: '37.772886,-122.423771',
 		destination: '37.871601,-122.269104'
-	}, 
+	},
 	function(err, data) {
 		if (err) {
 			console.error(err);
@@ -107,7 +107,7 @@ Let's use latitude and longitude and an index:
 
 Outputs:
 
-	{ 
+	{
 		index: 1,
 		distance: '13.6 mi',
 		duration: '20 mins',
@@ -117,5 +117,5 @@ Outputs:
 		units: 'imperial',
 		language: 'en',
 		avoid: null,
-		sensor: false 
+		sensor: false
 	}
