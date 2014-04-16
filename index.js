@@ -17,20 +17,26 @@ exports.get = function(args, callback) {
     sensor: args.sensor || false
   };
 
-  if (!options.origins) {return callback(new Error('Argument Error: Origin is invalid'))}
-  if (!options.destinations) {return callback(new Error('Argument Error: Destination is invalid'))}
+  if (!options.origins) {
+    return callback(new Error('Argument Error: Origin is invalid'));
+  }
+  if (!options.destinations) {
+    return callback(new Error('Argument Error: Destination is invalid'));
+  }
 
-  fetchData(options, function(err, result) {
+  fetchData(options, function(err, data) {
     if (err) {
-      callback(err);
-      return;
+      return callback(err);
     }
-    var data = result;
-    if (data.status != 'OK') {
-      callback(new Error('Status error: ' + data.status));
-      return;
+    var requestStatus = data.status;
+    var resultStatus = data.rows[0].elements[0].status;
+    if (requestStatus != 'OK') {
+      return callback(new Error('Status error: ' + requestStatus));
     }
-    var d = {
+    if (resultStatus != 'OK') {
+      return callback(new Error('Result error: ' + resultStatus));
+    }
+    var result = {
       index: options.index,
       distance: data.rows[0].elements[0].distance.text,
       duration: data.rows[0].elements[0].duration.text,
@@ -42,37 +48,17 @@ exports.get = function(args, callback) {
       avoid: options.avoid,
       sensor: options.sensor
     };
-    return callback(null, d);
+    return callback(null, result);
   });
 };
 
-
 var fetchData = function(options, callback) {
-  request(DISTANCE_API_URL + qs.stringify(options), function (error, res, body) {
-    if (!error && res.statusCode == 200) {
+  request(DISTANCE_API_URL + qs.stringify(options), function (err, res, body) {
+    if (!err && res.statusCode == 200) {
       var data = JSON.parse(body);
       callback(null, data);
     } else {
-      callback(new Error('Could not fetch data from Google\'s servers'));
+      callback(new Error('Request error: Could not fetch data from Google\'s servers'));
     }
   });
-  // var httpOptions = {
-  //     host: 'maps.googleapis.com',
-  //     path: '/maps/api/distancematrix/json?' + qs.stringify(options)
-  // };
-
-  // var requestCallback = function(res) {
-  //     var json = '';
-
-  //     res.on('data', function (chunk) {
-  //       json += chunk;
-  //       callback(null, JSON.parse(json));
-  //     });
-  // }
-
-  // var req = http.request(httpOptions, requestCallback);
-  // req.on('error', function(err) {
-  //   callback(new Error('Request error: ' + err.message));
-  // });
-  // req.end();
-}
+};
