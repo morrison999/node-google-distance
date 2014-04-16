@@ -1,3 +1,5 @@
+'use strict';
+
 var qs = require('querystring'),
 	http = require('http');
 exports.get = function(args, callback) {
