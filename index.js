@@ -5,7 +5,7 @@ var qs = require('querystring'),
 
 var DISTANCE_API_URL = 'http://maps.googleapis.com/maps/api/distancematrix/json?';
 
-exports.get = function(args, callback) {
+var get = function(args, callback) {
   var options = {
     index: args.index || null,
     origins: args.origin,
@@ -61,4 +61,9 @@ var fetchData = function(options, callback) {
       callback(new Error('Request error: Could not fetch data from Google\'s servers'));
     }
   });
+};
+
+module.exports = {
+  get: get,
+  fetchData: fetchData
 };
