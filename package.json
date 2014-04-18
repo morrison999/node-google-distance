@@ -4,7 +4,9 @@
   "main": "index",
   "description": "A simple node.js wrapper for Google's Distance Matrix API",
   "author": {
-    "name": "Edward Look <edwlook@gmail.com>"
+    "name": "Edward Look",
+    "email": "edwlook@gmail.com",
+    "url": "http://edward.land/"
   },
   "repository": {
     "type": "git",
