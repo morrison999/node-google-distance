@@ -115,3 +115,12 @@ Outputs:
   sensor: false
 }
 ```
+## Running Tests
+
+1) Install the development dependencies:
+
+    npm install
+
+2) Run the tests:
+
+    npm test
