@@ -1,4 +1,6 @@
 # Google Distance Matrix API for Node.js
+[![Build Status](https://travis-ci.org/edwlook/node-google-distance.svg?branch=master)](https://travis-ci.org/edwlook/node-google-distance)
+
 Easily get traveling distance and duration info between locations with [Google Distance Matrix API](https://developers.google.com/maps/documentation/distancematrix/)
 
 ## Installation
