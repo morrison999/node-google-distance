@@ -17,11 +17,8 @@ distance.get(
     destination: 'San Diego, CA'
   },
   function(err, data) {
-    if (err) {
-      return console.error(err);
-    }
+    if (err) return console.log(err);
     console.log(data);
-    //your custom logic...
 });
 ```
 The above example outputs the following `data` object:
@@ -40,22 +37,22 @@ The above example outputs the following `data` object:
 }
 ```
 ## Additional Parameters
-In addition to 'origin' and 'destination,' you may include these options to tailor your query:
-```js
-{
-  index: null(default),
-  mode: driving(default) | walking | bicycling,
-  units: imperial(default) | metric, //imperial returns distances in miles/feet. metric in kilometers/meters.
-  language: en(default),
-  avoid: null(default) | highways | tolls,
-  sensor: false(default) | true //determines if a sensor (such as GPS) is used to determine user location.
-}
-```
-## More Examples
-This one uses more options:
-```js
-var distance = require('google-distance');
 
+Here is a full list of options you can include to tailor your query:
+
+* origin, destination - `name` (eg. `'San Francisco, CA'`) | `latitude/longitude` (eg. `'51.510652,-0.095444'`)
+* index - `null` (default) | specify an index for identification
+* mode - `'driving'` (default) | `'walking'` | `'bicycling'`
+* units - `'imperial'` (default) miles/feet | `'metric'` kilometers/meters
+* language - `'en'` (default) | [more languages](https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1)
+* avoid - `null` (default) | `'highways'` | `'tolls'`
+* sensor - `false` (default) | `true` | determines if GPS is used to find user location
+
+## More Examples
+
+This example uses `mode` and `units`:
+
+```js
 distance.get(
   {
     origin: 'San Francisco, CA',
@@ -64,14 +61,13 @@ distance.get(
     units: 'metric'
   },
   function(err, data) {
-    if (err) {
-      return console.error(err);
-    }
+    if (err) return console.log(err);
     console.log(data);
-    //your custom logic...
 });
 ```
+
 Outputs:
+
 ```js
 {
   index: null,
@@ -86,7 +82,11 @@ Outputs:
   sensor: false
 }
 ```
-Let's use latitude and longitude and an index:
+
+***
+
+Let's use latitude and longitude for our origin/destination and an index:
+
 ```js
 distance.get(
 {
@@ -95,14 +95,13 @@ distance.get(
   destination: '37.871601,-122.269104'
 },
 function(err, data) {
-  if (err) {
-    return console.error(err);
-  }
+  if (err) return console.log(err);
   console.log(data);
-  //your custom logic...
 });
 ```
+
 Outputs:
+
 ```js
 {
   index: 1,
@@ -117,6 +116,7 @@ Outputs:
   sensor: false
 }
 ```
+
 ## Running Tests
 
 1) Install the development dependencies:
