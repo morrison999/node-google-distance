@@ -8,6 +8,7 @@
     "email": "edwlook@gmail.com",
     "url": "http://edward.land/"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/edwlook/node-google-distance.git"
