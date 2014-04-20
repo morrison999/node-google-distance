@@ -3,7 +3,7 @@
 var qs = require('querystring'),
     request = require('request');
 
-var DISTANCE_API_URL = 'http://maps.googleapis.com/maps/api/distancematrix/json?';
+var DISTANCE_API_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
 
 var GoogleDistance = function() {
   this.apiKey = '';
