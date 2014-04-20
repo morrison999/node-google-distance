@@ -1,7 +1,7 @@
 var assert = require('chai').assert,
     distance = require('../');
 
-describe('google-distance', function() {
+describe('GoogleDistance', function() {
 
   describe('#fetchData()', function() {
 
