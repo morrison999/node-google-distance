@@ -70,7 +70,7 @@ GoogleDistance.prototype.fetchData = function(options, callback) {
       var data = JSON.parse(body);
       callback(null, data);
     } else {
-      callback(new Error('Request error: Could not fetch data from Google\'s servers'));
+      callback(new Error('Request error: Could not fetch data from Google\'s servers: ' + body));
     }
   });
 };
