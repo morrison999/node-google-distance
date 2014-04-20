@@ -127,6 +127,25 @@ Outputs:
 }
 ```
 
+## API Keys
+
+Using an API key is not required, but recommended since you can track your usage and make sure you don't exceed [Google's quota](https://developers.google.com/maps/documentation/distancematrix/#Limits). You can request a key from Google [here](https://console.developers.google.com).
+
+Specify an API key for use like this:
+
+```js
+var distance = require('google-distance');
+distance.apiKey = 'API_KEY';
+```
+
+Business users can omit the API key and instead specify their business client and signature keys:
+
+```js
+var distance = require('google-distance');
+distance.businessClientKey = 'CLIENT_KEY';
+distance.businessSignatureKey = 'SIGNATURE_KEY';
+```
+
 ## Running Tests
 
 1) Install the development dependencies:
