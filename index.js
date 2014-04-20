@@ -5,7 +5,13 @@ var qs = require('querystring'),
 
 var DISTANCE_API_URL = 'http://maps.googleapis.com/maps/api/distancematrix/json?';
 
-var get = function(args, callback) {
+var GoogleDistance = function() {
+  this.apiKey = '';
+  this.businessClientKey = '';
+  this.businessSignatureKey = '';
+};
+
+GoogleDistance.prototype.get = function(args, callback) {
   var options = {
     index: args.index || null,
     origins: args.origin,
@@ -14,9 +20,16 @@ var get = function(args, callback) {
     units: args.units || 'imperial',
     language: args.language || 'en',
     avoid: args.avoid || null,
-    sensor: args.sensor || false
+    sensor: args.sensor || false,
+    key: this.apiKey
   };
 
+  if (this.businessClientKey && this.businessSignatureKey) {
+    delete options.key;
+    options.client = this.businessClientKey;
+    options.signature = this.businessSignatureKey;
+  }
+  console.log(options);
   if (!options.origins) {
     return callback(new Error('Argument Error: Origin is invalid'));
   }
@@ -24,7 +37,7 @@ var get = function(args, callback) {
     return callback(new Error('Argument Error: Destination is invalid'));
   }
 
-  fetchData(options, function(err, data) {
+  this.fetchData(options, function(err, data) {
     if (err) {
       return callback(err);
     }
@@ -52,7 +65,7 @@ var get = function(args, callback) {
   });
 };
 
-var fetchData = function(options, callback) {
+GoogleDistance.prototype.fetchData = function(options, callback) {
   request(DISTANCE_API_URL + qs.stringify(options), function (err, res, body) {
     if (!err && res.statusCode == 200) {
       var data = JSON.parse(body);
@@ -63,7 +76,4 @@ var fetchData = function(options, callback) {
   });
 };
 
-module.exports = {
-  get: get,
-  fetchData: fetchData
-};
+module.exports = new GoogleDistance();
