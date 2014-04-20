@@ -25,12 +25,14 @@ The above example outputs the following `data` object:
 ```js
 {
   index: null,
-  distance: '502 mi',
-  duration: '7 hours 48 mins',
+  distance: '807 km',
+  distanceValue: 807366,
+  duration: '7 hours 30 mins',
+  durationValue: 26981,
   origin: 'San Francisco, CA, USA',
   destination: 'San Diego, CA, USA',
   mode: 'driving',
-  units: 'imperial',
+  units: 'metric',
   language: 'en',
   avoid: null,
   sensor: false
@@ -43,14 +45,18 @@ Here is a full list of options you can include to tailor your query:
 * origin, destination - `name` (eg. `'San Francisco, CA'`) | `latitude/longitude` (eg. `'51.510652,-0.095444'`)
 * index - `null` (default) | specify an index for identification
 * mode - `'driving'` (default) | `'walking'` | `'bicycling'`
-* units - `'imperial'` (default) miles/feet | `'metric'` kilometers/meters
+* units - `'metric'` (default) kilometers/meters | `'imperial'` miles/feet
 * language - `'en'` (default) | [more languages](https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1)
 * avoid - `null` (default) | `'highways'` | `'tolls'`
 * sensor - `false` (default) | `true` | determines if GPS is used to find user location
 
+Note: The `units` setting only affects the text displayed within `distance` fields.
+
+`distanceValue` is always in meters, and `durationValue` is always in seconds.
+
 ## More Examples
 
-This example uses `mode` and `units`:
+This example specifies `mode` and `units`:
 
 ```js
 distance.get(
@@ -58,7 +64,7 @@ distance.get(
     origin: 'San Francisco, CA',
     destination: 'Los Angeles, CA',
     mode: 'bicycling',
-    units: 'metric'
+    units: 'imperial'
   },
   function(err, data) {
     if (err) return console.log(err);
@@ -71,12 +77,14 @@ Outputs:
 ```js
 {
   index: null,
-  distance: '800 km',
+  distance: '499 mi',
+  distanceValue: 802534,
   duration: '1 day 21 hours',
+  durationValue: 161896,
   origin: 'San Francisco, CA, USA',
   destination: 'Los Angeles, CA, USA',
   mode: 'bicycling',
-  units: 'metric',
+  units: 'imperial',
   language: 'en',
   avoid: null,
   sensor: false
@@ -105,12 +113,14 @@ Outputs:
 ```js
 {
   index: 1,
-  distance: '13.6 mi',
-  duration: '20 mins',
+  distance: '21.9 km',
+  distanceValue: 21946,
+  duration: '21 mins',
+  durationValue: 1251,
   origin: 'Octavia Boulevard, San Francisco, CA 94102, USA',
   destination: '2066-2070 University Avenue, Berkeley, CA 94704, USA',
   mode: 'driving',
-  units: 'imperial',
+  units: 'metric',
   language: 'en',
   avoid: null,
   sensor: false
