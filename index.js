@@ -42,7 +42,7 @@ GoogleDistance.prototype.get = function(args, callback) {
     }
     var requestStatus = data.status;
     if (requestStatus != 'OK') {
-      return callback(new Error('Status error: ' + requestStatus));
+      return callback(new Error('Status error: ' + requestStatus + ': ' + data.error_message));
     }
     var resultStatus = data.rows[0].elements[0].status;
     if (resultStatus != 'OK') {
