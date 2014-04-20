@@ -48,10 +48,14 @@ GoogleDistance.prototype.get = function(args, callback) {
     if (resultStatus != 'OK') {
       return callback(new Error('Result error: ' + resultStatus));
     }
+
+    var element = data.rows[0].elements[0];
     var result = {
       index: options.index,
-      distance: data.rows[0].elements[0].distance.text,
-      duration: data.rows[0].elements[0].duration.text,
+      distance: element.distance.text,
+      distanceValue: element.distance.value,
+      duration: element.duration.text,
+      durationValue: element.duration.value,
       origin: data.origin_addresses[0],
       destination: data.destination_addresses[0],
       mode: options.mode,
