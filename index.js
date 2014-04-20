@@ -17,7 +17,7 @@ GoogleDistance.prototype.get = function(args, callback) {
     origins: args.origin,
     destinations: args.destination,
     mode: args.mode || 'driving',
-    units: args.units || 'imperial',
+    units: args.units || 'metric',
     language: args.language || 'en',
     avoid: args.avoid || null,
     sensor: args.sensor || false,
