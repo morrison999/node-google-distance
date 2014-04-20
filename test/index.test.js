@@ -26,12 +26,12 @@ describe('GoogleDistance', function() {
         if (err) return done(err);
         var expectedData = {
           index: null,
-          distance: '502 mi',
-          duration: '7 hours 48 mins',
+          distance: '807 km',
+          duration: '7 hours 30 mins',
           origin: 'San Francisco, CA, USA',
           destination: 'San Diego, CA, USA',
           mode: 'driving',
-          units: 'imperial',
+          units: 'metric',
           language: 'en',
           avoid: null,
           sensor: false
