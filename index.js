@@ -29,7 +29,6 @@ GoogleDistance.prototype.get = function(args, callback) {
     options.client = this.businessClientKey;
     options.signature = this.businessSignatureKey;
   }
-  console.log(options);
   if (!options.origins) {
     return callback(new Error('Argument Error: Origin is invalid'));
   }
