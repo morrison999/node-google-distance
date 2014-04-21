@@ -129,7 +129,7 @@ Outputs:
 
 ## API Keys
 
-Using an API key is not required, but recommended since you can track your usage and make sure you don't exceed [Google's quota](https://developers.google.com/maps/documentation/distancematrix/#Limits). You can request a key from Google [here](https://console.developers.google.com).
+Using an API key is not required, but recommended since you can track your usage and make sure you don't exceed [Google's quota](https://developers.google.com/maps/documentation/distancematrix/#Limits). You can request a key by [following these steps](https://developers.google.com/maps/documentation/distancematrix/#api_key).
 
 Specify an API key for use like this:
 
