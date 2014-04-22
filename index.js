@@ -12,29 +12,7 @@ var GoogleDistance = function() {
 };
 
 GoogleDistance.prototype.get = function(args, callback) {
-  var options = {
-    index: args.index || null,
-    origins: args.origin,
-    destinations: args.destination,
-    mode: args.mode || 'driving',
-    units: args.units || 'metric',
-    language: args.language || 'en',
-    avoid: args.avoid || null,
-    sensor: args.sensor || false,
-    key: this.apiKey
-  };
-
-  if (this.businessClientKey && this.businessSignatureKey) {
-    delete options.key;
-    options.client = this.businessClientKey;
-    options.signature = this.businessSignatureKey;
-  }
-  if (!options.origins) {
-    return callback(new Error('Argument Error: Origin is invalid'));
-  }
-  if (!options.destinations) {
-    return callback(new Error('Argument Error: Destination is invalid'));
-  }
+  var options = this.formatOptions(args);
 
   this.fetchData(options, function(err, data) {
     if (err) {
@@ -66,6 +44,32 @@ GoogleDistance.prototype.get = function(args, callback) {
     };
     return callback(null, result);
   });
+};
+
+GoogleDistance.prototype.formatOptions = function(args) {
+  var options = {
+    index: args.index || null,
+    origins: args.origin,
+    destinations: args.destination,
+    mode: args.mode || 'driving',
+    units: args.units || 'metric',
+    language: args.language || 'en',
+    avoid: args.avoid || null,
+    sensor: args.sensor || false,
+    key: this.apiKey
+  };
+  if (this.businessClientKey && this.businessSignatureKey) {
+    delete options.key;
+    options.client = this.businessClientKey;
+    options.signature = this.businessSignatureKey;
+  }
+  if (!options.origins) {
+    throw new Error('Argument Error: Origin is invalid');
+  }
+  if (!options.destinations) {
+    throw new Error('Argument Error: Destination is invalid');
+  }
+  return options;
 };
 
 GoogleDistance.prototype.fetchData = function(options, callback) {
