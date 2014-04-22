@@ -12,37 +12,14 @@ var GoogleDistance = function() {
 };
 
 GoogleDistance.prototype.get = function(args, callback) {
+  var self = this;
   var options = this.formatOptions(args);
-
   this.fetchData(options, function(err, data) {
-    if (err) {
-      return callback(err);
-    }
-    var requestStatus = data.status;
-    if (requestStatus != 'OK') {
-      return callback(new Error('Status error: ' + requestStatus + ': ' + data.error_message));
-    }
-    var resultStatus = data.rows[0].elements[0].status;
-    if (resultStatus != 'OK') {
-      return callback(new Error('Result error: ' + resultStatus));
-    }
-
-    var element = data.rows[0].elements[0];
-    var result = {
-      index: options.index,
-      distance: element.distance.text,
-      distanceValue: element.distance.value,
-      duration: element.duration.text,
-      durationValue: element.duration.value,
-      origin: data.origin_addresses[0],
-      destination: data.destination_addresses[0],
-      mode: options.mode,
-      units: options.units,
-      language: options.language,
-      avoid: options.avoid,
-      sensor: options.sensor
-    };
-    return callback(null, result);
+    if (err) return callback(err);
+    self.formatResults(data, options, function(err, results) {
+      if (err) return callback(err);
+      return callback(null, results);
+    });
   });
 };
 
@@ -58,6 +35,7 @@ GoogleDistance.prototype.formatOptions = function(args) {
     sensor: args.sensor || false,
     key: this.apiKey
   };
+
   if (this.businessClientKey && this.businessSignatureKey) {
     delete options.key;
     options.client = this.businessClientKey;
@@ -70,6 +48,34 @@ GoogleDistance.prototype.formatOptions = function(args) {
     throw new Error('Argument Error: Destination is invalid');
   }
   return options;
+};
+
+GoogleDistance.prototype.formatResults = function(data, options, callback) {
+  var requestStatus = data.status;
+  if (requestStatus != 'OK') {
+    return callback(new Error('Status error: ' + requestStatus + ': ' + data.error_message));
+  }
+  var resultStatus = data.rows[0].elements[0].status;
+  if (resultStatus != 'OK') {
+    return callback(new Error('Result error: ' + resultStatus));
+  }
+
+  var element = data.rows[0].elements[0];
+  var results = {
+    index: options.index,
+    distance: element.distance.text,
+    distanceValue: element.distance.value,
+    duration: element.duration.text,
+    durationValue: element.duration.value,
+    origin: data.origin_addresses[0],
+    destination: data.destination_addresses[0],
+    mode: options.mode,
+    units: options.units,
+    language: options.language,
+    avoid: options.avoid,
+    sensor: options.sensor
+  };
+  return callback(null, results);
 };
 
 GoogleDistance.prototype.fetchData = function(options, callback) {
