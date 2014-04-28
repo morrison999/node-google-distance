@@ -26,10 +26,6 @@ describe('GoogleDistance', function() {
         if (err) return done(err);
         var expectedData = {
           index: null,
-          distance: '807 km',
-          distanceValue: 807366,
-          duration: '7 hours 30 mins',
-          durationValue: 26981,
           origin: 'San Francisco, CA, USA',
           destination: 'San Diego, CA, USA',
           mode: 'driving',
@@ -52,9 +48,7 @@ describe('GoogleDistance', function() {
         assert.typeOf(data.durationValue, 'number', 'Duration value should be a number');
 
         for (var key in expectedData) {
-          if (key != 'distance' && key != 'duration') {
-            assert.strictEqual(data[key], expectedData[key], key + ':');
-          }
+          assert.strictEqual(data[key], expectedData[key], key + ':');
         }
         done();
       });
