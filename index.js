@@ -55,12 +55,12 @@ GoogleDistance.prototype.formatResults = function(data, options, callback) {
   if (requestStatus != 'OK') {
     return callback(new Error('Status error: ' + requestStatus + ': ' + data.error_message));
   }
-  var resultStatus = data.rows[0].elements[0].status;
+  var element = data.rows[0].elements[0];
+  var resultStatus = element.status;
   if (resultStatus != 'OK') {
     return callback(new Error('Result error: ' + resultStatus));
   }
 
-  var element = data.rows[0].elements[0];
   var results = {
     index: options.index,
     distance: element.distance.text,
