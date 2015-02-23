@@ -25,8 +25,9 @@ GoogleDistance.prototype.get = function(args, callback) {
 
 GoogleDistance.prototype.formatOptions = function(args) {
   var pipeIt = function (array) {
+    var string = '';
     for (var i = array.length - 1; i >= 0; i--) {
-      var string = array[i] + '|';
+      string += array[i] + '|';
     };
     string = string.substring(0, string.length - 1);
     return string;
