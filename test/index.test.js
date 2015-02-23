@@ -13,6 +13,14 @@ describe('GoogleDistance', function() {
       distance.fetchData(options, done);
     });
 
+    it('should GET without error when passed multiple origins/destinations', function(done) {
+      var options = {
+        origins: ['San Francisco, CA','San Diego, CA'],
+        destinations: ['San Diego, CA','Seattle, WA, USA']
+      };
+      distance.fetchData(options, done);
+    });
+
   });
 
   describe('#get()', function() {
