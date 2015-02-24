@@ -24,15 +24,6 @@ GoogleDistance.prototype.get = function(args, callback) {
 };
 
 GoogleDistance.prototype.formatOptions = function(args) {
-  var pipeIt = function (array) {
-    var string = '';
-    for (var i = array.length - 1; i >= 0; i--) {
-      string += array[i] + '|';
-    };
-    string = string.substring(0, string.length - 1);
-    return string;
-  };
-
   var options = {
     index: args.index || null,
     origins: args.origin,
@@ -45,8 +36,8 @@ GoogleDistance.prototype.formatOptions = function(args) {
     key: this.apiKey
   };
 
-  if (!args.origin && args.origins) options.origins = pipeIt(args.origins);
-  if (!args.destination && args.destinations) options.destinations = pipeIt(args.destinations);
+  if (!args.origin && args.origins) options.origins = args.origins.join('|');
+  if (!args.destination && args.destinations) options.destinations = args.destinations.join('|');
 
   if (this.businessClientKey && this.businessSignatureKey) {
     delete options.key;
