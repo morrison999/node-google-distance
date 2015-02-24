@@ -77,17 +77,20 @@ GoogleDistance.prototype.formatResults = function(data, options, callback) {
   }
   var results = [];
 
-  for (var i = data.rows.length - 1; i >= 0; i--) {
-    var element = data.rows[i].elements[0];
-    var resultStatus = element.status;
-    if (resultStatus != 'OK') {
-      return callback(new Error('Result error: ' + resultStatus));
-    };
-    element.origin = data.origin_addresses[i];
-    element.destination = data.destination_addresses[i];
+  for (var i = 0; i <= data.origin_addresses.length - 1; i++) {
+    for (var j = 0; j <= data.destination_addresses.length - 1; j++) {
+      var element = data.rows[i].elements[j];
+      var resultStatus = element.status;
+      if (resultStatus != 'OK') {
+        return callback(new Error('Result error: ' + resultStatus));
+      };
+      element.origin = data.origin_addresses[i];
+      element.destination = data.destination_addresses[j];
 
-    results.push(formatData(element));
+      results.push(formatData(element));
+    };
   };
+
   if (results.length == 1) results = results[0];
   return callback(null, results);
 };

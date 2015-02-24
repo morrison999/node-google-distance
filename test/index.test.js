@@ -80,6 +80,24 @@ describe('GoogleDistance', function() {
           sensor: false
         },{
           index: null,
+          origin: 'San Francisco, CA, USA',
+          destination: 'Seattle, WA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        },{
+          index: null,
+          origin: 'San Diego, CA, USA',
+          destination: 'San Diego, CA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        },{
+          index: null,
           origin: 'San Diego, CA, USA',
           destination: 'Seattle, WA, USA',
           mode: 'driving',
