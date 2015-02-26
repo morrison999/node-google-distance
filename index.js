@@ -77,8 +77,8 @@ GoogleDistance.prototype.formatResults = function(data, options, callback) {
   }
   var results = [];
 
-  for (var i = 0; i <= data.origin_addresses.length - 1; i++) {
-    for (var j = 0; j <= data.destination_addresses.length - 1; j++) {
+  for (var i = 0; i < data.origin_addresses.length; i++) {
+    for (var j = 0; j < data.destination_addresses.length; j++) {
       var element = data.rows[i].elements[j];
       var resultStatus = element.status;
       if (resultStatus != 'OK') {
