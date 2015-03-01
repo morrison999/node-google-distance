@@ -107,7 +107,7 @@ describe('GoogleDistance', function() {
           sensor: false
         }];
 
-        for (var i = expectedData.length - 1; i >= 0; i--) {
+        for (var i = 0; i < expectedData.length; i++) {
           assert.isDefined(data[i].distance, 'Distance data is missing');
           assert.typeOf(data[i].distance, 'string', 'Distance data should be a string');
 
