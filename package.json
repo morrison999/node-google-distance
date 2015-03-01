@@ -1,6 +1,6 @@
 {
   "name": "google-distance",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index",
   "description": "A simple node.js wrapper for Google's Distance Matrix API",
   "author": {
