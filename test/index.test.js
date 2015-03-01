@@ -3,26 +3,6 @@ var assert = require('chai').assert,
 
 describe('GoogleDistance', function() {
 
-  describe('#fetchData()', function() {
-
-    it('should GET without error', function(done) {
-      var options = {
-        origin: 'San Francisco, CA',
-        destination: 'San Diego, CA'
-      };
-      distance.fetchData(options, done);
-    });
-
-    it('should GET without error when passed multiple origins/destinations', function(done) {
-      var options = {
-        origins: ['San Francisco, CA','San Diego, CA'],
-        destinations: ['San Diego, CA','Seattle, WA, USA']
-      };
-      distance.fetchData(options, done);
-    });
-
-  });
-
   describe('#get()', function() {
 
     it('should return proper location data', function(done) {

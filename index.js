@@ -13,17 +13,17 @@ var GoogleDistance = function() {
 
 GoogleDistance.prototype.get = function(args, callback) {
   var self = this;
-  var options = this.formatOptions(args);
-  this.fetchData(options, function(err, data) {
+  var options = formatOptions.call(this, args);
+  fetchData(options, function(err, data) {
     if (err) return callback(err);
-    self.formatResults(data, options, function(err, results) {
+    formatResults(data, options, function(err, results) {
       if (err) return callback(err);
       return callback(null, results);
     });
   });
 };
 
-GoogleDistance.prototype.formatOptions = function(args) {
+var formatOptions = function(args) {
   var options = {
     index: args.index || null,
     origins: args.origin,
@@ -59,7 +59,7 @@ GoogleDistance.prototype.formatOptions = function(args) {
   return options;
 };
 
-GoogleDistance.prototype.formatResults = function(data, options, callback) {
+var formatResults = function(data, options, callback) {
   var formatData = function (element) {
     return {
       index: options.index,
@@ -103,7 +103,7 @@ GoogleDistance.prototype.formatResults = function(data, options, callback) {
   return callback(null, results);
 };
 
-GoogleDistance.prototype.fetchData = function(options, callback) {
+var fetchData = function(options, callback) {
   request(DISTANCE_API_URL + qs.stringify(options), function (err, res, body) {
     if (!err && res.statusCode == 200) {
       var data = JSON.parse(body);
