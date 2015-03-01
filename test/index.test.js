@@ -78,7 +78,7 @@ describe('GoogleDistance', function() {
           language: 'en',
           avoid: null,
           sensor: false
-        },{
+        }, {
           index: null,
           origin: 'San Francisco, CA, USA',
           destination: 'Seattle, WA, USA',
@@ -87,7 +87,7 @@ describe('GoogleDistance', function() {
           language: 'en',
           avoid: null,
           sensor: false
-        },{
+        }, {
           index: null,
           origin: 'San Diego, CA, USA',
           destination: 'San Diego, CA, USA',
@@ -96,7 +96,7 @@ describe('GoogleDistance', function() {
           language: 'en',
           avoid: null,
           sensor: false
-        },{
+        }, {
           index: null,
           origin: 'San Diego, CA, USA',
           destination: 'Seattle, WA, USA',
@@ -124,8 +124,8 @@ describe('GoogleDistance', function() {
           var actual = data[i];
           for (var key in expected) {
             assert.strictEqual(actual[key], expected[key], key + ':');
-          };
-        };
+          }
+        }
         done();
       });
     });
