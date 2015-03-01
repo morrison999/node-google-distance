@@ -36,8 +36,14 @@ GoogleDistance.prototype.formatOptions = function(args) {
     key: this.apiKey
   };
 
-  if (!args.origin && args.origins) options.origins = args.origins.join('|');
-  if (!args.destination && args.destinations) options.destinations = args.destinations.join('|');
+  if (!args.origin && args.origins) {
+    options.origins = args.origins.join('|');
+    options.batchMode = true;
+  }
+  if (!args.destination && args.destinations) {
+    options.destinations = args.destinations.join('|');
+    options.batchMode = true;
+  }
 
   if (this.businessClientKey && this.businessSignatureKey) {
     delete options.key;
@@ -83,15 +89,17 @@ GoogleDistance.prototype.formatResults = function(data, options, callback) {
       var resultStatus = element.status;
       if (resultStatus != 'OK') {
         return callback(new Error('Result error: ' + resultStatus));
-      };
+      }
       element.origin = data.origin_addresses[i];
       element.destination = data.destination_addresses[j];
 
       results.push(formatData(element));
-    };
-  };
+    }
+  }
 
-  if (results.length == 1) results = results[0];
+  if (results.length == 1 && !options.batchMode) {
+    results = results[0];
+  }
   return callback(null, results);
 };
 
