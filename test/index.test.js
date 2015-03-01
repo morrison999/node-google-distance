@@ -13,6 +13,14 @@ describe('GoogleDistance', function() {
       distance.fetchData(options, done);
     });
 
+    it('should GET without error when passed multiple origins/destinations', function(done) {
+      var options = {
+        origins: ['San Francisco, CA','San Diego, CA'],
+        destinations: ['San Diego, CA','Seattle, WA, USA']
+      };
+      distance.fetchData(options, done);
+    });
+
   });
 
   describe('#get()', function() {
@@ -50,6 +58,74 @@ describe('GoogleDistance', function() {
         for (var key in expectedData) {
           assert.strictEqual(data[key], expectedData[key], key + ':');
         }
+        done();
+      });
+    });
+
+    it('should return proper location data given multiple origins/destinations', function(done) {
+      var options = {
+        origins: ['San Francisco, CA','San Diego, CA'],
+        destinations: ['San Diego, CA','Seattle, WA']
+      };
+      distance.get(options, function(err, data) {
+        if (err) return done(err);
+        var expectedData = [{
+          index: null,
+          origin: 'San Francisco, CA, USA',
+          destination: 'San Diego, CA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        },{
+          index: null,
+          origin: 'San Francisco, CA, USA',
+          destination: 'Seattle, WA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        },{
+          index: null,
+          origin: 'San Diego, CA, USA',
+          destination: 'San Diego, CA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        },{
+          index: null,
+          origin: 'San Diego, CA, USA',
+          destination: 'Seattle, WA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        }];
+
+        for (var i = expectedData.length - 1; i >= 0; i--) {
+          assert.isDefined(data[i].distance, 'Distance data is missing');
+          assert.typeOf(data[i].distance, 'string', 'Distance data should be a string');
+
+          assert.isDefined(data[i].distanceValue, 'Distance value is missing');
+          assert.typeOf(data[i].distanceValue, 'number', 'Distance value should be a number');
+
+          assert.isDefined(data[i].duration, 'Duration data is missing');
+          assert.typeOf(data[i].duration, 'string', 'Duration data should be a string');
+
+          assert.isDefined(data[i].durationValue, 'Duration data is missing');
+          assert.typeOf(data[i].durationValue, 'number', 'Duration value should be a number');
+
+          var expected = expectedData[i];
+          var actual = data[i];
+          for (var key in expected) {
+            assert.strictEqual(actual[key], expected[key], key + ':');
+          };
+        };
         done();
       });
     });

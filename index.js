@@ -36,6 +36,9 @@ GoogleDistance.prototype.formatOptions = function(args) {
     key: this.apiKey
   };
 
+  if (!args.origin && args.origins) options.origins = args.origins.join('|');
+  if (!args.destination && args.destinations) options.destinations = args.destinations.join('|');
+
   if (this.businessClientKey && this.businessSignatureKey) {
     delete options.key;
     options.client = this.businessClientKey;
@@ -51,30 +54,44 @@ GoogleDistance.prototype.formatOptions = function(args) {
 };
 
 GoogleDistance.prototype.formatResults = function(data, options, callback) {
+  var formatData = function (element) {
+    return {
+      index: options.index,
+      distance: element.distance.text,
+      distanceValue: element.distance.value,
+      duration: element.duration.text,
+      durationValue: element.duration.value,
+      origin: element.origin,
+      destination: element.destination,
+      mode: options.mode,
+      units: options.units,
+      language: options.language,
+      avoid: options.avoid,
+      sensor: options.sensor
+    };
+  };
+
   var requestStatus = data.status;
   if (requestStatus != 'OK') {
     return callback(new Error('Status error: ' + requestStatus + ': ' + data.error_message));
   }
-  var element = data.rows[0].elements[0];
-  var resultStatus = element.status;
-  if (resultStatus != 'OK') {
-    return callback(new Error('Result error: ' + resultStatus));
-  }
+  var results = [];
 
-  var results = {
-    index: options.index,
-    distance: element.distance.text,
-    distanceValue: element.distance.value,
-    duration: element.duration.text,
-    durationValue: element.duration.value,
-    origin: data.origin_addresses[0],
-    destination: data.destination_addresses[0],
-    mode: options.mode,
-    units: options.units,
-    language: options.language,
-    avoid: options.avoid,
-    sensor: options.sensor
+  for (var i = 0; i < data.origin_addresses.length; i++) {
+    for (var j = 0; j < data.destination_addresses.length; j++) {
+      var element = data.rows[i].elements[j];
+      var resultStatus = element.status;
+      if (resultStatus != 'OK') {
+        return callback(new Error('Result error: ' + resultStatus));
+      };
+      element.origin = data.origin_addresses[i];
+      element.destination = data.destination_addresses[j];
+
+      results.push(formatData(element));
+    };
   };
+
+  if (results.length == 1) results = results[0];
   return callback(null, results);
 };
 
