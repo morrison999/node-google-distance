@@ -38,6 +38,30 @@ The above example outputs the following `data` object:
   sensor: false
 }
 ```
+#### Batch Mode
+
+This example will return an array of `data` objects corresponding to all origin/destination pairs.
+```js
+distance.get(
+{
+  origins: ['San Francisco, CA','San Diego, CA'],
+  destinations: ['San Diego, CA','Seattle, WA']
+},
+function(err, data) {
+  if (err) return console.log(err);
+  console.log(data);
+});
+```
+Result:
+
+Origin       | Destination
+------------ | -------------
+San Francisco, CA | San Diego, CA
+San Francisco, CA | Seattle, WA
+San Diego, CA | San Diego, CA
+San Diego, CA | Seattle, WA
+
+
 ## Additional Parameters
 
 Here is a full list of options you can include to tailor your query:
