@@ -67,6 +67,7 @@ describe('GoogleDistance', function() {
         origins: ['San Francisco, CA','San Diego, CA'],
         destinations: ['San Diego, CA','Seattle, WA']
       };
+
       distance.get(options, function(err, data) {
         if (err) return done(err);
         var expectedData = [{
@@ -107,6 +108,53 @@ describe('GoogleDistance', function() {
           sensor: false
         }];
 
+        assert.strictEqual(data.length, expectedData.length);
+
+        for (var i = 0; i < expectedData.length; i++) {
+          assert.isDefined(data[i].distance, 'Distance data is missing');
+          assert.typeOf(data[i].distance, 'string', 'Distance data should be a string');
+
+          assert.isDefined(data[i].distanceValue, 'Distance value is missing');
+          assert.typeOf(data[i].distanceValue, 'number', 'Distance value should be a number');
+
+          assert.isDefined(data[i].duration, 'Duration data is missing');
+          assert.typeOf(data[i].duration, 'string', 'Duration data should be a string');
+
+          assert.isDefined(data[i].durationValue, 'Duration data is missing');
+          assert.typeOf(data[i].durationValue, 'number', 'Duration value should be a number');
+
+          var expected = expectedData[i];
+          var actual = data[i];
+          for (var key in expected) {
+            assert.strictEqual(actual[key], expected[key], key + ':');
+          }
+        }
+        done();
+      });
+    });
+
+
+    it('should return proper result when given only one origin/destination in batch mode', function(done) {
+      var options = {
+        origins: ['San Francisco, CA'],
+        destinations: ['San Diego, CA']
+      };
+
+      distance.get(options, function(err, data) {
+        if (err) return done(err);
+        var expectedData = [{
+          index: null,
+          origin: 'San Francisco, CA, USA',
+          destination: 'San Diego, CA, USA',
+          mode: 'driving',
+          units: 'metric',
+          language: 'en',
+          avoid: null,
+          sensor: false
+        }];
+
+        assert.strictEqual(data.length, expectedData.length);
+
         for (var i = 0; i < expectedData.length; i++) {
           assert.isDefined(data[i].distance, 'Distance data is missing');
           assert.typeOf(data[i].distance, 'string', 'Distance data should be a string');
@@ -131,5 +179,4 @@ describe('GoogleDistance', function() {
     });
 
   });
-
 });
